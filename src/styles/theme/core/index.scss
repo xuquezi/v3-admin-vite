@@ -1,0 +1,7 @@
+.#{$theme-name} {
+  @import "./layouts.scss";
+  @import "./login.scss";
+  @import "./error-page.scss";
+  @import "./element-plus.scss";
+  @import "./other.scss";
+}
