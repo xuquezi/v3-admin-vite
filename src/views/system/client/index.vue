@@ -22,7 +22,7 @@
         <el-table-column fixed="right" label="操作" width="200">
           <template #default="scope">
             <el-button v-hasPerm="['system:client:update']" :icon="Delete" type="primary" size="small" link @click="handleUpdate('edit', scope.row)"> 编辑</el-button>
-            <el-button v-hasPerm="['system:client:delete']" :icon="Edit" type="primary" size="small" link @click="handleDelete(scope.row.clientId)"> 删除</el-button>
+            <el-button v-hasPerm="['system:client:delete']" :icon="Edit" type="primary" size="small" link @click="handleDelete(scope.row.clientKey)"> 删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -36,7 +36,7 @@
 import { reactive, ref, onMounted } from "vue"
 import { ElForm, ElMessageBox, ElMessage } from "element-plus"
 import { ClientQuery, ClientData } from "@/api/client/types"
-import { getClientPage, delClientById } from "@/api/client"
+import { getClientPage, delClientByKey } from "@/api/client"
 import ClientDialog from "@/views/system/client/dialog.vue"
 import { Search, Refresh, Plus, Delete, Edit } from "@element-plus/icons-vue"
 import pagination from "@/components/Pagination/index.vue"
@@ -75,14 +75,14 @@ function handleUpdate(type: string, row: ClientData) {
   clientDialogRef.value.openDialog(type, row)
 }
 
-function handleDelete(clientId: string) {
+function handleDelete(clientKey: string) {
   ElMessageBox.confirm("确定删除该客户端吗?", "警告", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   })
     .then(() => {
-      delClientById(clientId).then(() => {
+      delClientByKey(clientKey).then(() => {
         ElMessage.success("删除成功")
         resetQuery()
       })

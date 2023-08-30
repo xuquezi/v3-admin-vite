@@ -27,10 +27,10 @@ export function updateClient(data: ClientForm) {
   })
 }
 
-export function delClientById(clientId: string) {
+export function delClientByKey(clientKey: string) {
   return request({
-    url: ADMIN + "/client/delClientById",
+    url: ADMIN + "/client/delClientByKey",
     method: "delete",
-    params: { clientId }
+    params: { clientKey }
   })
 }
